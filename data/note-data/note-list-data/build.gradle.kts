@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "ru.pyroman.masik.domain.note.list"
+    namespace = "ru.pyroman.masik.data.note.list"
     compileSdk = 35
     defaultConfig {
         minSdk = 24
@@ -24,9 +24,9 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                implementation(projects.common.mvi)
                 implementation(projects.common.core.di)
-                api(projects.domain.noteDomain.noteCommonDomain)
+                implementation(projects.data.noteData.noteCommonData)
+                api(projects.domain.noteDomain.noteListDomain)
             }
         }
     }

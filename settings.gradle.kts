@@ -34,6 +34,7 @@ include(":common:core:di")
 include(":common:core:network")
 include(":common:mvi")
 
+include(":data:common-data")
 include(":data:note-data:note-common-data")
 include(":data:note-data:note-list-data")
 

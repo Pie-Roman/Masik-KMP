@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "ru.pyroman.masik.data.note"
+    namespace = "ru.pyroman.masik.data.note.common"
     compileSdk = 35
     defaultConfig {
         minSdk = 24
@@ -20,4 +20,13 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                api(projects.data.commonData)
+                api(projects.domain.noteDomain.noteCommonDomain)
+            }
+        }
+    }
 }
