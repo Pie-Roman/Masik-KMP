@@ -13,28 +13,41 @@ import io.ktor.http.encodedPath
 class MasikHttpClient(
     private val httpClient: HttpClient,
 ) {
-    private val baseUrl = "http://89.169.182.244:8080"
+    private val baseUrl = "89.169.182.244:8080"
 
-    suspend fun post(path: String, requestBody: Any): HttpResponse {
+    suspend fun post(
+        path: String,
+        params: Map<String, String> = emptyMap(),
+        requestBody: Any,
+    ): HttpResponse {
         return httpClient.request {
             url {
                 method = HttpMethod.Post
                 protocol = URLProtocol.HTTP
                 host = baseUrl
                 encodedPath = path
+                params.forEach { (key, value) ->
+                    parameters.append(key, value)
+                }
             }
             contentType(ContentType.Application.Json)
             setBody(requestBody)
         }
     }
 
-    suspend fun get(path: String): HttpResponse {
+    suspend fun get(
+        path: String,
+        params: Map<String, String> = emptyMap(),
+    ): HttpResponse {
         return httpClient.request {
             url {
                 method = HttpMethod.Get
                 protocol = URLProtocol.HTTP
                 host = baseUrl
                 encodedPath = path
+                params.forEach { (key, value) ->
+                    parameters.append(key, value)
+                }
             }
         }
     }

@@ -1,8 +1,6 @@
 package ru.pyroman.masik.data.note.list.network.api
 
 import io.ktor.client.call.body
-import io.ktor.http.URLBuilder
-import io.ktor.http.appendPathSegments
 import ru.pyroman.masik.data.common.network.MasikHttpClient
 import ru.pyroman.masik.data.note.list.network.dto.NoteListLaunchNetworkDto
 import ru.pyroman.masik.data.note.list.network.dto.NoteListNetworkDto
@@ -20,12 +18,12 @@ internal class NoteListNetworkClient(
 
     suspend fun getNotes(tagId: String?): NoteListNetworkDto {
         return httpClient.get(
-            path = URLBuilder().apply {
-                appendPathSegments("notes")
+            path = "/notes",
+            params = buildMap {
                 if (tagId != null) {
-                    parameters.append("tagId", tagId)
+                    put("tagId", tagId)
                 }
-            }.buildString()
+            }
         ).body()
     }
 }

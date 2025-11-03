@@ -25,6 +25,7 @@ val networkModule = module {
                     Json {
                         prettyPrint = true
                         isLenient = true
+                        ignoreUnknownKeys = true
                     }
                 )
             }
