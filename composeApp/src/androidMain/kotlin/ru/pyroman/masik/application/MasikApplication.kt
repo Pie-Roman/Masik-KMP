@@ -4,7 +4,7 @@ import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
-import ru.pyroman.masik.application.di.appModule
+import ru.pyroman.masik.di.appModule
 
 class MasikApplication : Application() {
 
