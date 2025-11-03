@@ -28,17 +28,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import org.koin.compose.viewmodel.koinViewModel
 import ru.pyroman.masik.domain.note.list.intent.NoteListIntent
 import ru.pyroman.masik.feature.note.list.state.NoteListState
 import ru.pyroman.masik.feature.note.list.viewmodel.NoteListViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NoteListView(
-    viewModel: NoteListViewModel = viewModel(),
-) {
+fun NoteListView() {
 
+    val viewModel: NoteListViewModel = koinViewModel()
     val viewState by viewModel.state.collectAsState()
 
     LaunchedEffect(Unit) {

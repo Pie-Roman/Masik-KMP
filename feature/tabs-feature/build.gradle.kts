@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "ru.pyroman.masik.feature.note.list"
+    namespace = "ru.pyroman.masik.feature.tabs"
     compileSdk = 35
     defaultConfig {
         minSdk = 24
@@ -30,9 +30,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(projects.common.core.di)
-                implementation(projects.common.mvi)
-                implementation(projects.domain.noteDomain.noteListDomain)
-                implementation(projects.data.noteData.noteListData)
+                implementation(projects.feature.noteFeature.noteListFeature)
 
                 implementation(compose.runtime)
                 implementation(compose.foundation)
@@ -43,9 +41,6 @@ kotlin {
                 implementation(compose.components.uiToolingPreview)
                 implementation(libs.androidx.lifecycle.viewmodelCompose)
                 implementation(libs.androidx.lifecycle.runtimeCompose)
-
-                implementation(libs.koin.compose)
-                implementation(libs.koin.compose.viewmodel)
             }
 
         }

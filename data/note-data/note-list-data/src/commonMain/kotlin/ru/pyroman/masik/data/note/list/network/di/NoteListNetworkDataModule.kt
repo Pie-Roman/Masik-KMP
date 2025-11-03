@@ -6,6 +6,7 @@ import ru.pyroman.masik.data.note.common.network.di.noteCommonDataModule
 import ru.pyroman.masik.data.note.list.network.api.NoteListNetworkClient
 import ru.pyroman.masik.data.note.list.network.datasource.NoteListNetworkDataSource
 import ru.pyroman.masik.data.note.list.network.mapper.NoteListNetworkMapper
+import ru.pyroman.masik.data.note.list.network.repository.NoteListNetworkRepository
 
 val noteListNetworkDataModule = module {
 
@@ -30,6 +31,13 @@ val noteListNetworkDataModule = module {
         NoteListNetworkMapper(
             noteNetworkMapper = get(),
             noteTagNetworkMapper = get(),
+        )
+    }
+
+    factory<NoteListNetworkRepository> {
+        NoteListNetworkRepository(
+            mapper = get(),
+            dataSource = get(),
         )
     }
 }

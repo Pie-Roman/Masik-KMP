@@ -20,16 +20,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import org.koin.compose.viewmodel.koinViewModel
 import ru.pyroman.masik.domain.note.common.model.NoteTag
 import ru.pyroman.masik.feature.note.list.viewmodel.NoteListTabsViewModel
 
 @Composable
 fun NoteListTabsView(
-    viewModel: NoteListTabsViewModel = viewModel(),
     onTabTapAction: (NoteTag?) -> Unit,
     content: @Composable () -> Unit
 ) {
+    val viewModel: NoteListTabsViewModel = koinViewModel()
     val tags by viewModel.tags.collectAsState()
 
     Column(

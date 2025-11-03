@@ -1,5 +1,6 @@
 package ru.pyroman.masik.feature.note.list.di
 
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 import ru.pyroman.masik.common.mvi.Reducer
 import ru.pyroman.masik.data.note.list.di.noteListDataModule
@@ -8,6 +9,7 @@ import ru.pyroman.masik.domain.note.list.intent.NoteListIntent
 import ru.pyroman.masik.feature.note.list.formatter.NoteListFormatter
 import ru.pyroman.masik.feature.note.list.reducer.NoteListReducer
 import ru.pyroman.masik.feature.note.list.state.NoteListState
+import ru.pyroman.masik.feature.note.list.viewmodel.NoteListTabsViewModel
 import ru.pyroman.masik.feature.note.list.viewmodel.NoteListViewModel
 
 val noteListFeatureModule = module {
@@ -27,10 +29,16 @@ val noteListFeatureModule = module {
         )
     }
 
-    factory<NoteListViewModel> {
+    viewModel<NoteListViewModel> {
         NoteListViewModel(
             processor = get(),
             reducer = get(),
+        )
+    }
+
+    viewModel<NoteListTabsViewModel> {
+        NoteListTabsViewModel(
+            repository = get(),
         )
     }
 }

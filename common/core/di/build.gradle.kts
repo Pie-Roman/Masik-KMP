@@ -24,7 +24,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
-                api(libs.koin)
+                api(libs.koin.core)
             }
         }
     }

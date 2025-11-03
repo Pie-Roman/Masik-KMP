@@ -28,6 +28,7 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.koin.android)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -39,7 +40,8 @@ kotlin {
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
 
-            implementation(projects.feature.noteFeature.noteListFeature)
+            implementation(projects.common.core.di)
+            implementation(projects.feature.tabsFeature)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
