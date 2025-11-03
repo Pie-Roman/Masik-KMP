@@ -3,6 +3,7 @@ package ru.pyroman.masik.feature.note.list.view
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -33,20 +35,28 @@ internal fun NoteListLoadedView(
             Text("Список дел пуст", color = Color.Gray, style = MaterialTheme.typography.titleMedium)
         }
     } else {
-        Row(
+        LazyColumn(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 8.dp)
+                .fillMaxSize()
+                .padding(top = 8.dp),
+            contentPadding = PaddingValues(bottom = 16.dp)
         ) {
-            NoteListLoadedColumnView(
-                items = noteList.leftColumn,
-                onUpdate = onUpdate,
-            )
-            Spacer(Modifier.width(12.dp))
-            NoteListLoadedColumnView(
-                items = noteList.rightColumn,
-                onUpdate = onUpdate,
-            )
+            item {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    NoteListLoadedColumnView(
+                        items = noteList.leftColumn,
+                        onUpdate = onUpdate,
+                    )
+                    Spacer(Modifier.width(12.dp))
+                    NoteListLoadedColumnView(
+                        items = noteList.rightColumn,
+                        onUpdate = onUpdate,
+                    )
+                }
+            }
         }
     }
 }
