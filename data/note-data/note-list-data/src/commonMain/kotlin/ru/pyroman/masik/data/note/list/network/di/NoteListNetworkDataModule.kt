@@ -1,37 +1,35 @@
 package ru.pyroman.masik.data.note.list.network.di
 
-import org.kodein.di.instance
+import org.koin.dsl.module
 import ru.pyroman.masik.data.common.di.commonDataModule
 import ru.pyroman.masik.data.note.common.network.di.noteCommonDataModule
 import ru.pyroman.masik.data.note.list.network.api.NoteListNetworkClient
 import ru.pyroman.masik.data.note.list.network.datasource.NoteListNetworkDataSource
 import ru.pyroman.masik.data.note.list.network.mapper.NoteListNetworkMapper
-import ru.pyroman.news.common.core.di.module
-import ru.pyroman.news.common.core.di.provider
 
-val noteListNetworkDataModule = module("noteListNetworkDataModule") {
+val noteListNetworkDataModule = module {
 
-    importAll(
+    includes(
         noteCommonDataModule,
         commonDataModule,
     )
 
-    provider<NoteListNetworkClient> {
+    factory<NoteListNetworkClient> {
         NoteListNetworkClient(
-            httpClient = instance(),
+            httpClient = get(),
         )
     }
 
-    provider<NoteListNetworkDataSource> {
+    factory<NoteListNetworkDataSource> {
         NoteListNetworkDataSource(
-            client = instance(),
+            client = get(),
         )
     }
 
-    provider<NoteListNetworkMapper> {
+    factory<NoteListNetworkMapper> {
         NoteListNetworkMapper(
-            noteNetworkMapper = instance(),
-            noteTagNetworkMapper = instance(),
+            noteNetworkMapper = get(),
+            noteTagNetworkMapper = get(),
         )
     }
 }

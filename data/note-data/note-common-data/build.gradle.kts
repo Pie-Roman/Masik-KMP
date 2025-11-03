@@ -24,6 +24,8 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                implementation(projects.common.core.di)
+                api(projects.common.core.network)
                 api(projects.data.commonData)
                 api(projects.domain.noteDomain.noteCommonDomain)
             }

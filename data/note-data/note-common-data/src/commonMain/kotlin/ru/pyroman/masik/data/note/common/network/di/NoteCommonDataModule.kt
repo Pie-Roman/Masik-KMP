@@ -1,27 +1,30 @@
 package ru.pyroman.masik.data.note.common.network.di
 
-import org.kodein.di.instance
+import org.koin.dsl.module
+import ru.pyroman.masik.common.core.network.ktor.networkModule
 import ru.pyroman.masik.data.note.common.network.mapper.NoteBodyNetworkMapper
 import ru.pyroman.masik.data.note.common.network.mapper.NoteNetworkMapper
 import ru.pyroman.masik.data.note.common.network.mapper.NoteTagNetworkMapper
-import ru.pyroman.news.common.core.di.module
-import ru.pyroman.news.common.core.di.provider
 
-val noteCommonDataModule = module("noteCommonDataModule") {
+val noteCommonDataModule = module {
 
-    provider<NoteTagNetworkMapper> {
+    includes(
+        networkModule
+    )
+
+    factory<NoteTagNetworkMapper> {
         NoteTagNetworkMapper()
     }
 
-    provider<NoteBodyNetworkMapper> {
+    factory<NoteBodyNetworkMapper> {
         NoteBodyNetworkMapper(
-            noteTagNetworkMapper = instance(),
+            noteTagNetworkMapper = get(),
         )
     }
 
-    provider<NoteNetworkMapper> {
+    factory<NoteNetworkMapper> {
         NoteNetworkMapper(
-            noteBodyNetworkMapper = instance(),
+            noteBodyNetworkMapper = get(),
         )
     }
 }

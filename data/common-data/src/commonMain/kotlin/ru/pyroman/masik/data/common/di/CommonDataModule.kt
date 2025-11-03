@@ -1,15 +1,13 @@
 package ru.pyroman.masik.data.common.di
 
-import org.kodein.di.instance
+import org.koin.dsl.module
 import ru.pyroman.masik.data.common.network.MasikHttpClient
-import ru.pyroman.news.common.core.di.module
-import ru.pyroman.news.common.core.di.singleton
 
-val commonDataModule = module("commonDataModule") {
+val commonDataModule = module {
 
-    singleton {
+    single {
         MasikHttpClient(
-            httpClient = instance(),
+            httpClient = get(),
         )
     }
 }

@@ -9,12 +9,11 @@ import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.plugins.logging.SIMPLE
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
-import ru.pyroman.news.common.core.di.module
-import ru.pyroman.news.common.core.di.singleton
+import org.koin.dsl.module
 
-val networkModule = module("networkModule") {
+val networkModule = module {
 
-    singleton {
+    single {
         HttpClient(HttpEngineFactory().createEngine()) {
             install(Logging) {
                 logger = Logger.SIMPLE

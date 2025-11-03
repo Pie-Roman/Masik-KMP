@@ -1,12 +1,11 @@
 package ru.pyroman.masik.data.note.list.cache.di
 
+import org.koin.dsl.module
 import ru.pyroman.masik.data.note.list.cache.repository.NoteListTagsCacheRepository
-import ru.pyroman.news.common.core.di.module
-import ru.pyroman.news.common.core.di.singleton
 
-val noteListCacheDataModule = module("noteListCacheDataModule") {
+val noteListCacheDataModule = module {
 
-    singleton<NoteListTagsCacheRepository> {
+    single<NoteListTagsCacheRepository> {
         NoteListTagsCacheRepository()
     }
 }

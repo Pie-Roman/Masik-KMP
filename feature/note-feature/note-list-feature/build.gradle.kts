@@ -29,6 +29,7 @@ kotlin {
         }
         commonMain {
             dependencies {
+                implementation(projects.common.core.di)
                 implementation(projects.common.mvi)
                 implementation(projects.domain.noteDomain.noteListDomain)
                 implementation(projects.data.noteData.noteListData)
