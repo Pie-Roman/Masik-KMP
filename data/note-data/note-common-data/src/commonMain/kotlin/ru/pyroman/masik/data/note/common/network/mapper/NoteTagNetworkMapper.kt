@@ -16,4 +16,16 @@ class NoteTagNetworkMapper {
             color = color,
         )
     }
+
+    fun map(model: NoteTag): NoteTagNetworkDto {
+        val id = model.id
+        val name = model.name
+        val color = model.color
+
+        return NoteTagNetworkDto(
+            id = id,
+            name = name,
+            color = color,
+        )
+    }
 }

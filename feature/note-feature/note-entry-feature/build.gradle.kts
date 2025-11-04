@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "ru.pyroman.masik.feature.note.list"
+    namespace = "ru.pyroman.masik.feature.note.entry"
     compileSdk = 35
     defaultConfig {
         minSdk = 24
@@ -31,8 +31,8 @@ kotlin {
             dependencies {
                 implementation(projects.common.core.di)
                 implementation(projects.common.mvi)
-                implementation(projects.domain.noteDomain.noteListDomain)
-                implementation(projects.data.noteData.noteListData)
+                implementation(projects.domain.noteDomain.noteEntryDomain)
+                implementation(projects.data.noteData.noteEntryData)
 
                 implementation(compose.runtime)
                 implementation(compose.foundation)

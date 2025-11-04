@@ -20,4 +20,18 @@ class NoteBodyNetworkMapper(
             tags = tags,
         )
     }
+
+    fun map(model: NoteBody): NoteBodyNetworkDto {
+        val title = model.title
+        val isDone = model.isDone
+        val tags = model.tags.map { tag ->
+            noteTagNetworkMapper.map(tag)
+        }
+
+        return NoteBodyNetworkDto(
+            title = title,
+            isDone = isDone,
+            tags = tags,
+        )
+    }
 }

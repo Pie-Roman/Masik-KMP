@@ -1,5 +1,6 @@
-package ru.pyroman.masik.feature.note.list.viewmodel
+package ru.pyroman.masik.feature.note.entry.viewmodel
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Job
@@ -9,16 +10,21 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import ru.pyroman.masik.common.mvi.Processor
 import ru.pyroman.masik.common.mvi.Reducer
-import ru.pyroman.masik.domain.note.list.intent.NoteListIntent
-import ru.pyroman.masik.feature.note.list.state.NoteListState
+import ru.pyroman.masik.domain.note.entry.intent.NoteEntryIntent
+import ru.pyroman.masik.domain.note.entry.model.NoteEntryInitialData
+import ru.pyroman.masik.feature.note.entry.state.NoteEntryState
 
-class NoteListViewModel(
-    private val processor: Processor<NoteListIntent>,
-    private val reducer: Reducer<NoteListState, NoteListIntent>,
+class NoteEntryViewModel(
+    private val initialData: NoteEntryInitialData,
+    private val processor: Processor<NoteEntryIntent>,
+    private val reducer: Reducer<NoteEntryState, NoteEntryIntent>,
 ): ViewModel() {
 
-    private val _state = MutableStateFlow<NoteListState>(NoteListState.Idle)
-    val state: StateFlow<NoteListState> = _state.asStateFlow()
+    private val _state = MutableStateFlow<NoteEntryState>(NoteEntryState.Idle)
+    val state: StateFlow<NoteEntryState> = _state.asStateFlow()
+
+    val title = mutableStateOf(initialData.note?.body?.title.orEmpty())
+    val link = mutableStateOf("")
 
     private var intentsJob: Job? = null
 
@@ -31,7 +37,7 @@ class NoteListViewModel(
         }
     }
 
-    fun send(intent: NoteListIntent) = viewModelScope.launch {
+    fun send(intent: NoteEntryIntent) = viewModelScope.launch {
         processor.process(intent)
     }
 

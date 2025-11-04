@@ -35,6 +35,43 @@ class MasikHttpClient(
         }
     }
 
+    suspend fun patch(
+        path: String,
+        params: Map<String, String> = emptyMap(),
+        requestBody: Any,
+    ): HttpResponse {
+        return httpClient.request {
+            url {
+                method = HttpMethod.Patch
+                protocol = URLProtocol.HTTP
+                host = baseUrl
+                encodedPath = path
+                params.forEach { (key, value) ->
+                    parameters.append(key, value)
+                }
+            }
+            contentType(ContentType.Application.Json)
+            setBody(requestBody)
+        }
+    }
+
+    suspend fun delete(
+        path: String,
+        params: Map<String, String> = emptyMap(),
+    ): HttpResponse {
+        return httpClient.request {
+            url {
+                method = HttpMethod.Delete
+                protocol = URLProtocol.HTTP
+                host = baseUrl
+                encodedPath = path
+                params.forEach { (key, value) ->
+                    parameters.append(key, value)
+                }
+            }
+        }
+    }
+
     suspend fun get(
         path: String,
         params: Map<String, String> = emptyMap(),
