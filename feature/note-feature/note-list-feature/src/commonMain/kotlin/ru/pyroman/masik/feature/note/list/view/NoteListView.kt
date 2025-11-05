@@ -24,12 +24,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import org.koin.compose.viewmodel.koinViewModel
+import ru.pyroman.masik.domain.note.entry.model.NoteEntryInitialData
+import ru.pyroman.masik.domain.note.entry.model.NoteEntryMode
 import ru.pyroman.masik.domain.note.list.intent.NoteListIntent
+import ru.pyroman.masik.feature.note.entry.view.NoteEntryView
 import ru.pyroman.masik.feature.note.list.state.NoteListState
 import ru.pyroman.masik.feature.note.list.viewmodel.NoteListViewModel
 
@@ -39,6 +46,7 @@ fun NoteListView() {
 
     val viewModel: NoteListViewModel = koinViewModel()
     val viewState by viewModel.state.collectAsState()
+    var noteEntryData by remember { mutableStateOf<NoteEntryInitialData?>(null) }
 
     LaunchedEffect(Unit) {
         viewModel.subscribeToIntents()
@@ -50,7 +58,10 @@ fun NoteListView() {
                 title = { Text("Что надо сделать") },
                 actions = {
                     IconButton(onClick = {
-
+                        noteEntryData = NoteEntryInitialData(
+                            mode = NoteEntryMode.ADD,
+                            note = null,
+                        )
                     }) {
                         Icon(Icons.Default.Add, contentDescription = "Add")
                     }
@@ -90,6 +101,23 @@ fun NoteListView() {
                     )
                 }
             }
+        }
+    }
+
+    noteEntryData?.let { data ->
+        Dialog(
+            onDismissRequest = { viewModel.send(NoteListIntent.Load) }
+        ) {
+            NoteEntryView(
+                initialData = data,
+                onCancelled = {
+                    noteEntryData = null
+                },
+                onAdded = { note ->
+                    viewModel.send(NoteListIntent.Load)
+                    noteEntryData = null
+                },
+            )
         }
     }
 }

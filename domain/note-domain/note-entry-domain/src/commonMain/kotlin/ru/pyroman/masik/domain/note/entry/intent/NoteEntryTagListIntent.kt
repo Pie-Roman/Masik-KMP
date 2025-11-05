@@ -1,6 +1,5 @@
 package ru.pyroman.masik.domain.note.entry.intent
 
-import ru.pyroman.masik.domain.note.common.model.Note
 import ru.pyroman.masik.domain.note.common.model.NoteTag
 
 sealed interface NoteEntryTagListIntent {
@@ -14,10 +13,10 @@ sealed interface NoteEntryTagListIntent {
     ) : NoteEntryTagListIntent
 
     data class ShowAdded(
-        val note: Note,
+        val tag: NoteTag,
     ) : NoteEntryTagListIntent
 
     data class ShowUpdated(
-        val note: Note,
+        val tag: NoteTag,
     ) : NoteEntryTagListIntent
 }

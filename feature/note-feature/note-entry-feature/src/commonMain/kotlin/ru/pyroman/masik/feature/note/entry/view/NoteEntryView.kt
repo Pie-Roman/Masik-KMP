@@ -53,7 +53,7 @@ import ru.pyroman.masik.feature.note.entry.viewmodel.NoteEntryViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NoteEntryScreen(
+fun NoteEntryView(
     initialData: NoteEntryInitialData,
     onCancelled: () -> Unit,
     onAdded: ((Note) -> Unit)? = null,
@@ -62,7 +62,13 @@ fun NoteEntryScreen(
     val viewModel: NoteEntryViewModel = koinViewModel {
         parametersOf(initialData)
     }
-    val tagListViewModel: NoteEntryTagListViewModel = koinViewModel()
+    val tagListViewModel: NoteEntryTagListViewModel = koinViewModel {
+        parametersOf(
+            NoteEntryTagListInitialData(
+                note = initialData.note
+            )
+        )
+    }
     val viewState by viewModel.state.collectAsState()
     val tagsViewState by tagListViewModel.state.collectAsState()
 
